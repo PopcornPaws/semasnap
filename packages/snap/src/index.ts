@@ -1,5 +1,6 @@
 import { OnRpcRequestHandler } from '@metamask/snaps-types';
 import { panel, text } from '@metamask/snaps-ui';
+import { bytesToHex } from '@metamask/utils';
 import { Identity } from "@semaphore-protocol/identity";
 
 import { getEntropy } from "./entropy";
@@ -20,7 +21,7 @@ type RegisterIdentityParams = {
  * @returns The result of `snap_dialog`.
  * @throws If the request method is not valid for this snap.
  */
-export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
+export const onRpcRequest: OnRpcRequestHandler = async ({ snapId, request }) => {
   switch (request.method) {
     case "registerIdentity": {
         const params = request.params as RegisterIdentityParams;
@@ -32,8 +33,11 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
         } else {
             idName = params.name;
         };
+
         const entropy = getEntropy(params.salt);
-        const identity = new Identity(entropy);
+        const identity = new Identity(entropy as unknown as string);
+
+        throw new Error(`commitment: ${identity.commitment}`);
 
         // load currently stored state
         let state = await getState()

@@ -29,6 +29,7 @@
   "dependencies": {
     "@metamask/snaps-types": "^0.32.2",
     "@metamask/snaps-ui": "^0.32.2",
+    "@metamask/utils": "^6.1.0",
     "@semaphore-protocol/identity": "^3.10.1",
     "buffer": "^6.0.3"
   },

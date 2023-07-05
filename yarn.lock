@@ -4541,7 +4541,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/utils@npm:^6.0.0, @metamask/utils@npm:^6.0.1":
+"@metamask/utils@npm:^6.0.0, @metamask/utils@npm:^6.0.1, @metamask/utils@npm:^6.1.0":
   version: 6.1.0
   resolution: "@metamask/utils@npm:6.1.0"
   dependencies:
@@ -19996,6 +19996,7 @@ __metadata:
     "@metamask/snaps-jest": ^0.35.2-flask.1
     "@metamask/snaps-types": ^0.32.2
     "@metamask/snaps-ui": ^0.32.2
+    "@metamask/utils": ^6.1.0
     "@semaphore-protocol/identity": ^3.10.1
     "@typescript-eslint/eslint-plugin": ^5.33.0
     "@typescript-eslint/parser": ^5.33.0
