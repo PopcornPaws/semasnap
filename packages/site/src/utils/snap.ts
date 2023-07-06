@@ -51,11 +51,7 @@ export const getSnap = async (version?: string): Promise<Snap | undefined> => {
   }
 };
 
-/**
- * Invoke the "hello" method from the example snap.
- */
-
-export const sendHello = async () => {
+export const registerIdentity = async () => {
   const result = await window.ethereum.request({
     method: 'wallet_invokeSnap',
     params: { snapId: defaultSnapOrigin, request: { method: 'registerIdentity', params: { name: null, salt: null } } },
@@ -63,5 +59,8 @@ export const sendHello = async () => {
 
   console.log(`result: ${result}`);
 };
+
+//export const getCommitment = async () => {
+//};
 
 export const isLocalSnap = (snapId: string) => snapId.startsWith('local:');

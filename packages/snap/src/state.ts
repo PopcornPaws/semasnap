@@ -1,6 +1,4 @@
-import { Identity } from "@semaphore-protocol/identity";
-
-export type State = Map<string, Identity>;
+export type State = Record<string, string>;
 
 /**
  * Get the current state of the snap. If the snap does not have state, the
@@ -12,17 +10,16 @@ export type State = Map<string, Identity>;
  * @see https://docs.metamask.io/snaps/reference/rpc-api/#snap_managestate
  */
 export async function getState(): Promise<State> {
-  const state = await snap.request({
+  const maybeState = await snap.request({
     method: 'snap_manageState',
-
-    // For this particular example, we use the `ManageStateOperation.GetState`
-    // enum value, but you can also use the string value `'get'` instead.
-    params: { operation: "get" },
+    params: { operation: 'get' },
   });
+
+  const state: State | null = maybeState ?? {} as State;
 
   // If the snap does not have state, `state` will be `null`. Instead, we return
   // the default state.
-  return (state as State | null) ?? new State();
+  return state
 }
 
 /**

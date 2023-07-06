@@ -16,12 +16,12 @@ import { remove0x } from '@metamask/utils';
  * @returns The generated entropy, without the leading "0x".
  * @see https://docs.metamask.io/snaps/reference/rpc-api/#snap_getentropy
  */
-export async function getEntropy(salt = "semaphore entropy salt") {
+export async function getEntropy(salt) {
   const entropy = await snap.request({
     method: 'snap_getEntropy',
     params: {
       version: 1,
-      salt,
+      salt: salt ?? "defaultSalt",
     },
   });
 

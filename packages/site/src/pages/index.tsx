@@ -4,7 +4,7 @@ import { MetamaskActions, MetaMaskContext } from '../hooks';
 import {
   connectSnap,
   getSnap,
-  sendHello,
+  registerIdentity,
   shouldDisplayReconnectButton,
 } from '../utils';
 import {
@@ -119,7 +119,7 @@ const Index = () => {
 
   const handleSendHelloClick = async () => {
     try {
-      await sendHello();
+      await registerIdentity();
     } catch (e) {
       console.error(e);
       dispatch({ type: MetamaskActions.SetError, payload: e });

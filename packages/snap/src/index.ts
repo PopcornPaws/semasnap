@@ -4,7 +4,7 @@ import { bytesToHex } from '@metamask/utils';
 import { Identity } from "@semaphore-protocol/identity";
 
 import { getEntropy } from "./entropy";
-import { getState, setState } from "./state";
+import { getState, setState, State } from "./state";
 
 type RegisterIdentityParams = {
     name: string | null,
@@ -34,21 +34,19 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ snapId, request }) => 
             idName = params.name;
         };
 
-        const entropy = getEntropy(params.salt);
-        const identity = new Identity(entropy as unknown as string);
-
-        throw new Error(`commitment: ${identity.commitment}`);
+        const entropy = await getEntropy(params.salt);
+        const identity = new Identity(entropy);
 
         // load currently stored state
-        let state = await getState()
+        let state = await getState();
 
         // add (name - identity) pair to the identity map
-        state.set(idName, identity);
+        state[idName] = identity.toString();
 
         // store updated state
         await setState(state);
 
-        return identity.commitment
+        return `0x${identity.commitment.toString(16)}`
     }
     default:
       throw new Error('Method not found.');
